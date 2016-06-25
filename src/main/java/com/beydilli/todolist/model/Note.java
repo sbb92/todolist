@@ -12,25 +12,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "NOTE")
-@NamedQueries({
-	@NamedQuery(name = "Note.getNoteByNoteNameAndUser", query="select n from Note n where n.user=:user and n.name=noteName"),
-	@NamedQuery(name = "Note.updateTextByNoteNameAndUser", query="update Note n set n.text = :text where n.user=:user and n.name=noteName")
-
+@NamedQueries({ 
+	@NamedQuery(name = "Note.getNoteByNoteIdAndUser", query = "select n from Note n where n.id=:noteId")
 })
 public class Note extends BaseModel {
 
 	private String name;
-	private String text = "";
+	private Boolean status;
 	private User user;
 
 	public Note() {
 		super();
 	}
 
-	public Note(String name, User user) {
+	public Note(String name, User user, boolean status) {
 		super();
 		this.name = name;
 		this.user = user;
+		this.status = status;
 	}
 
 	@Column(name = "NAME")
@@ -43,16 +42,6 @@ public class Note extends BaseModel {
 	}
 
 	@JsonIgnore
-	@Column(name = "TEXT", columnDefinition = "TEXT")
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "USER_ID", nullable = false)
 	public User getUser() {
@@ -61,6 +50,15 @@ public class Note extends BaseModel {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Column(name = "STATUS")
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 }

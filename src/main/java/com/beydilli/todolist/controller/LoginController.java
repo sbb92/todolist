@@ -24,12 +24,12 @@ public class LoginController {
 	@Autowired
 	private UserDao userDao;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView login(HttpServletRequest request) {
 		if (WebUtil.isUserLoggedIn(request)) {
 			return new ModelAndView("redirect:home");
 		} else {
-			return new ModelAndView("login");
+			return new ModelAndView("views/login");
 		}
 	}
 

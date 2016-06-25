@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta charset="utf-8"></meta>
+<link
+	rel="stylesheet"
+	th:href="@{/assets/css/bootstrap.css}"></link>
+<link
+	rel="stylesheet"
+	type="text/css"
+	th:href="@{/css/home.css}"></link>
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+<title>To Do List</title>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<div class="todolist not-done">
+					<div style="display: inline-block !important; width:100%;">
+						<div style="float: left; width: 85%">
+							<h1 th:text="${user.name} +' '+ ${user.surname} + ' Todo Listesi'"></h1>
+						</div>
+						<div style="float: left; width: 15%">
+							<button
+								id="logOutButton"
+								type="button"
+								class="btn btn-default btn-primary">
+								<span class="glyphicon glyphicon-log-out"></span> Log out
+							</button>
+						</div>
+					</div>
+					<div
+						id="error-message"
+						class=""></div>
+					<br/><br/>
+					<input
+						id="todo-value"
+						type="text"
+						class="form-control add-todo"
+						placeholder="İş Ekle"></input>
+					<button
+						id="addToDo"
+						class="btn btn-success center-block">Ekle</button>
+					<hr></hr>
+					<table
+						id="mytable"
+						class="table table-bordred table-striped">
+						<thead>
+							<th>Durum</th>
+							<th>İş</th>
+							<th>Durumu Güncelle</th>
+							<th>Sil</th>
+						</thead>
+						<tbody>
+							<th:block th:each="note : ${user.notes}">
+								<tr th:id="'row_'+${note.id}">
+									<td th:switch="${note.status}"><a
+										th:case="true"
+										th:id="'status_'+${note.id}"
+										href="#"
+										class="btn btn-primary btn-success">Yapıldı</a> <a
+										th:case="false"
+										th:id="'status_'+${note.id}"
+										href="#"
+										class="btn btn-primary btn-danger">Bekliyor</a></td>
+									<td th:text="${note.name}"></td>
+									<td><a
+										th:id="${note.id}"
+										href="#"
+										class="btn btn-default btn-default change-status"><span class="glyphicon glyphicon-repeat"></span></a></td>
+									<td><a
+										th:id="${note.id}"
+										href="#"
+										class="btn btn-default btn-default delete-note"><span class="glyphicon glyphicon-remove"></span></a></td>
+								</tr>
+							</th:block>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

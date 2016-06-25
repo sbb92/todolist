@@ -5,10 +5,11 @@ import java.lang.reflect.ParameterizedType;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.beydilli.todolist.dao.BaseDao;
 
-
+@Transactional
 public class BaseDaoImpl <T> extends HibernateDaoSupport implements BaseDao<T>{
 
 	private Class<T> entityClass;

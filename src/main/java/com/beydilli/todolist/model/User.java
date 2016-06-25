@@ -75,7 +75,7 @@ public class User extends BaseModel {
 		this.password = password;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Note> getNotes() {
 		return notes;
 	}

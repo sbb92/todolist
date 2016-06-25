@@ -5,16 +5,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.beydilli.todolist.dao.NoteDao;
 import com.beydilli.todolist.model.Note;
-import com.beydilli.todolist.model.User;
 
 @Repository("noteDao")
 @Transactional
 public class NoteDaoImpl extends BaseDaoImpl<Note> implements NoteDao {
 
 	@Override
-	public Note getNoteByNoteNameAndUser(User user, String noteName) {
-		return (Note) currentSession().getNamedQuery("Note.getNoteByNoteNameAndUser").setParameter("user", user)
-				.setParameter("noteName", noteName).uniqueResult();
+	public Note getNoteByNoteId(Long noteId) {
+		return (Note) currentSession().getNamedQuery("Note.getNoteByNoteIdAndUser").setParameter("noteId", noteId).uniqueResult();
 	}
 
+	@Override
+	public void deleteById(Long id) {
+		getSessionFactory().getCurrentSession().createQuery("delete Note where id = :id").setParameter("id",id).executeUpdate();
+	}
 }

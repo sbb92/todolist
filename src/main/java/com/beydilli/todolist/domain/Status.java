@@ -2,9 +2,9 @@ package com.beydilli.todolist.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@JsonFormat(shape = JsonFormat.Shape.STRING)
 public enum Status {
-	SUCCES("succes"), FAILED("failed");
+	SUCCES("SUCCES"), FAILED("FAILED");
 
 	private final String name;
 
