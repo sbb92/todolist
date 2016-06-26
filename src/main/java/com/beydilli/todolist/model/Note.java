@@ -13,7 +13,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "NOTE")
 @NamedQueries({ 
-	@NamedQuery(name = "Note.getNoteByNoteIdAndUser", query = "select n from Note n where n.id=:noteId")
+	@NamedQuery(name = "Note.getNoteByNoteIdAndUser", query = "select n from Note n where n.id=:noteId"),
+	@NamedQuery(name = "Note.deleteById", query = "delete Note where id = :id")
 })
 public class Note extends BaseModel {
 

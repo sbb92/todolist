@@ -6,14 +6,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.beydilli.todolist.dao.UserDao;
 import com.beydilli.todolist.model.User;
 
-
 @Repository("userDao")
 @Transactional
-public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
 	@Override
 	public User findByEmailAndPassword(String email, String password) {
 		return (User) currentSession().getNamedQuery("User.getUserByEmailAndPassword").setParameter("email", email).setParameter("password", password).uniqueResult();
 	}
 
+	@Override
+	public void deleteById(Long id) {
+		getSessionFactory().getCurrentSession().getNamedQuery("User.deleteById").setParameter("id", id).executeUpdate();
+	}
 }

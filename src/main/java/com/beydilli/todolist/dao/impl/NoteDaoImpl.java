@@ -17,6 +17,6 @@ public class NoteDaoImpl extends BaseDaoImpl<Note> implements NoteDao {
 
 	@Override
 	public void deleteById(Long id) {
-		getSessionFactory().getCurrentSession().createQuery("delete Note where id = :id").setParameter("id",id).executeUpdate();
+		getSessionFactory().getCurrentSession().getNamedQuery("Note.deleteById").setParameter("id",id).executeUpdate();
 	}
 }

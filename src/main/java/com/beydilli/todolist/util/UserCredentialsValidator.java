@@ -19,6 +19,9 @@ public class UserCredentialsValidator {
 		if ((email == null || "".equals(email)) || (password == null || "".equals(password))) {
 			return false;
 		}
+		if (!email.matches(EMAIL_REGEX)) {
+			return false;
+		}
 		return true;
 	}
 }

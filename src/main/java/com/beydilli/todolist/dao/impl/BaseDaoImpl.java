@@ -45,4 +45,9 @@ public class BaseDaoImpl <T> extends HibernateDaoSupport implements BaseDao<T>{
 		return getHibernateTemplate().merge(obj);
 	}
 
+	@Override
+	public void deleteById(Long id) {
+		
+	}
+
 }

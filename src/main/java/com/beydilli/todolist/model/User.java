@@ -17,7 +17,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER")
 @NamedQueries({
-	@NamedQuery(name = "User.getUserByEmailAndPassword", query="select u from User u where u.email=:email and u.password=:password")
+	@NamedQuery(name = "User.getUserByEmailAndPassword", query="select u from User u where u.email=:email and u.password=:password"),
+	@NamedQuery(name = "User.deleteById", query = "delete User where id = :id")
 })
 public class User extends BaseModel {
 

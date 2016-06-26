@@ -24,7 +24,11 @@ import com.beydilli.todolist.util.WebUtil;
 @Controller
 @RequestMapping(value = "/home")
 public class HomeController {
-
+	
+	private final static String LOGIN_FIRST = "Lüften giriş yapınız.";
+	private final static String DELETE_SUCCESS = "Başarı ile silindi.";
+	private final static String UPDATE_SUCCESS = "Başarı ile güncellendi.";
+	
 	@Autowired
 	private UserDao userDao;
 
@@ -52,9 +56,9 @@ public class HomeController {
 			user.getNotes().add(note);
 			user = userDao.save(user);
 			WebUtil.addToSession(request, user, SessionKey.USER);
-			return new RestfulResult(Status.SUCCES, note.getId().toString());
+			return new RestfulResult(Status.SUCCESS, String.valueOf(note.getId()));
 		} else {
-			return new RestfulResult(Status.FAILED, "Lüften giriş yapınız.");
+			return new RestfulResult(Status.FAILED, LOGIN_FIRST);
 		}
 	}
 
@@ -72,9 +76,9 @@ public class HomeController {
 			noteDao.save(note);
 			User user = userDao.findById(userId);
 			WebUtil.addToSession(request, user, SessionKey.USER);
-			return new RestfulResult(Status.SUCCES, "Başarı ile güncellendi.");
+			return new RestfulResult(Status.SUCCESS, UPDATE_SUCCESS);
 		} else {
-			return new RestfulResult(Status.FAILED, "Lüften giriş yapınız.");
+			return new RestfulResult(Status.FAILED, LOGIN_FIRST);
 		}
 	}
 	
@@ -86,9 +90,9 @@ public class HomeController {
 			noteDao.deleteById(noteId);
 			User user = userDao.findById(userId);
 			WebUtil.addToSession(request, user, SessionKey.USER);
-			return new RestfulResult(Status.SUCCES, "Başarı ile silindi.");
+			return new RestfulResult(Status.SUCCESS, DELETE_SUCCESS);
 		} else {
-			return new RestfulResult(Status.FAILED, "Lüften giriş yapınız.");
+			return new RestfulResult(Status.FAILED, LOGIN_FIRST);
 		}
 	}
 }

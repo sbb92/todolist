@@ -4,5 +4,4 @@ import com.beydilli.todolist.model.Note;
 
 public interface NoteDao extends BaseDao<Note>{
 	public Note getNoteByNoteId( Long noteId);
-	public void deleteById(Long id);
 }

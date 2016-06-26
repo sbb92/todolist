@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.STRING)
 public enum Status {
-	SUCCES("SUCCES"), FAILED("FAILED");
+	SUCCESS("SUCCESS"), FAILED("FAILED");
 
 	private final String name;
 

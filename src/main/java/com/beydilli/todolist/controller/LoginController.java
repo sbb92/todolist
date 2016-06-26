@@ -21,6 +21,11 @@ import com.beydilli.todolist.util.WebUtil;
 @RequestMapping(value = "/login")
 public class LoginController {
 
+	private final static String SIGN_UP_SUCCESS = "Kullanıcınız başarı ile oluşturulmuştur.";
+	private final static String SIGN_IN_SUCCESS = "Başarı ile giriş yaptınız.";
+	private final static String USER_INFO_FAILED = "Kullanıcı bilgilerini lütfen doğru giriniz.";
+	private final static String LOGUOT_SUCCES = "Başarı ile çıkış yaptınız.";
+	
 	@Autowired
 	private UserDao userDao;
 
@@ -35,16 +40,15 @@ public class LoginController {
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	@ResponseBody
-	public RestfulResult signUp(HttpServletRequest request, String email, String password, String name,
-			String surname) {
+	public RestfulResult signUp(HttpServletRequest request, String email, String password, String name, String surname) {
 		if (!UserCredentialsValidator.validateUserCredentials(name, surname, email, password)) {
-			return new RestfulResult(Status.FAILED, "Kullanıcı bilgilerini lütfen doğru giriniz.");
+			return new RestfulResult(Status.FAILED, USER_INFO_FAILED);
 		}
 		User user = new User(name, surname, email, password);
 		userDao.save(user);
 		WebUtil.addToSession(request, user.getId(), SessionKey.USER_ID);
 		WebUtil.addToSession(request, user, SessionKey.USER);
-		return new RestfulResult(Status.SUCCES, "Kullanıcınız başarı ile oluşturulmuştur.");
+		return new RestfulResult(Status.SUCCESS, SIGN_UP_SUCCESS);
 
 	}
 
@@ -53,15 +57,15 @@ public class LoginController {
 	public RestfulResult signIn(HttpServletRequest request, String email, String password) {
 
 		if (!UserCredentialsValidator.validateUserCredentials(email, password)) {
-			return new RestfulResult(Status.FAILED, "Kullanıcı bilgilerini lütfen doğru giriniz.");
+			return new RestfulResult(Status.FAILED, USER_INFO_FAILED);
 		}
 		User user = userDao.findByEmailAndPassword(email, password);
 		if (user == null) {
-			return new RestfulResult(Status.FAILED, "Kullanıcı bilgilerini lütfen doğru giriniz.");
+			return new RestfulResult(Status.FAILED, USER_INFO_FAILED);
 		}
 		WebUtil.addToSession(request, user.getId(), SessionKey.USER_ID);
 		WebUtil.addToSession(request, user, SessionKey.USER);
-		return new RestfulResult(Status.SUCCES, "Başarı ile giriş yaptınız.");
+		return new RestfulResult(Status.SUCCESS, SIGN_IN_SUCCESS);
 
 	}
 
@@ -70,7 +74,7 @@ public class LoginController {
 	public RestfulResult signIn(HttpServletRequest request) {
 		WebUtil.removeFromSession(request, SessionKey.USER_ID);
 		WebUtil.removeFromSession(request, SessionKey.USER);
-		return new RestfulResult(Status.SUCCES, "Başarı ile çıkış yaptınız.");
+		return new RestfulResult(Status.SUCCESS, LOGUOT_SUCCES);
 
 	}
 }
