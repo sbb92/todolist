@@ -79,7 +79,7 @@ public class HomeControllerTest extends TodolistApplicationTests {
 
 		Mockito.when(userDao.findById(Matchers.isA(Long.class))).thenReturn(new User());
 		Mockito.when(userDao.save(Matchers.isA(User.class))).thenReturn(new User());
-		Mockito.when(noteDao.getNoteByNoteId(Matchers.isA(Long.class))).thenReturn(new Note());
+		Mockito.when(noteDao.findById(Matchers.isA(Long.class))).thenReturn(new Note());
 		Mockito.when(noteDao.save(Matchers.isA(Note.class))).thenReturn(new Note());
 
 		mvc.perform(MockMvcRequestBuilders.post("/home/updateStatus").session(session).param("noteId", "1").param("status", "1").accept("application/json"))

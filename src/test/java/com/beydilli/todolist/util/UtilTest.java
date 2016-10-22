@@ -15,13 +15,13 @@ public class UtilTest extends TodolistApplicationTests {
 
 	@Test
 	public void userCredentialsValidatorTest() {
-		assertTrue(UserCredentialsValidator.validateUserCredentials("ahmet@gmail.com", "fdsf"));
+		assertTrue(UserCredentialsValidator.validateLoginCredentials("ahmet@gmail.com", "fdsf"));
 		assertTrue(UserCredentialsValidator.validateUserCredentials("ahmet", "yılmaz", "ahmet@ahmet.com", "2345"));
 
-		assertFalse(UserCredentialsValidator.validateUserCredentials("ahmetgmail.com", "fdsf"));
+		assertFalse(UserCredentialsValidator.validateLoginCredentials("ahmetgmail.com", "fdsf"));
 		assertFalse(UserCredentialsValidator.validateUserCredentials("ahmet", "yılmaz", "ahmetahmet.com", "2345"));
 
-		assertFalse(UserCredentialsValidator.validateUserCredentials("ahmetgmail.com", null));
+		assertFalse(UserCredentialsValidator.validateLoginCredentials("ahmetgmail.com", null));
 		assertFalse(UserCredentialsValidator.validateUserCredentials("ahmet", "yılmaz", null, "2345"));
 
 	}

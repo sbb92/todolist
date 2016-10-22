@@ -1,7 +1,12 @@
 package com.beydilli.todolist.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.beydilli.todolist.model.Note;
 
-public interface NoteDao extends BaseDao<Note>{
-	public Note getNoteByNoteId( Long noteId);
+public interface NoteDao extends JpaRepository<Note, Long> {
+
+	public Note findById(Long id);
+
+	public void deleteById(Long id);
 }
